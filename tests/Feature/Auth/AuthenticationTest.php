@@ -14,7 +14,7 @@ test('users can authenticate using the login screen', function () {
     $user = User::factory()->create();
 
     $response = $this->post('/login', [
-        'login' => $user->login,
+        'login' => $user->username,
         'password' => 'password',
     ]);
 
