@@ -56,7 +56,11 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
-        $role->delete();
+        if ($role->users()->count() > 0){
+            return redirect()->route('roles.dashboard')->with('error', 'No se puede eliminar porque está en uso por uno o más usuarios.');
+        }else{
+            $role->delete();
+        }
 
         return redirect()->route('roles.dashboard')->with('success', 'Rol eliminado correctamente.');
     }
